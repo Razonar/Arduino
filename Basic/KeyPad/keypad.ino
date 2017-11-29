@@ -1,5 +1,5 @@
 /*
-   Práctica 7 segmentos y keypad
+   Práctica LSD 7 segmentos y keypad
    Arduino nano
    Alvaro
 */
