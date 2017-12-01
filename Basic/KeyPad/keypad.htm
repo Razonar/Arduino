@@ -1,0 +1,239 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Courant;
+	panose-1:2 0 5 9 3 0 0 2 0 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#954F72;
+	text-decoration:underline;}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	mso-style-link:"Code Car";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	background:#F2F2F2;
+	font-size:10.0pt;
+	font-family:Courant;}
+span.CodeCar
+	{mso-style-name:"Code Car";
+	mso-style-link:Code;
+	font-family:Courant;
+	background:#F2F2F2;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:107%;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 3.0cm 70.85pt 3.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=ES-MX link="#0563C1" vlink="#954F72">
+
+<div class=WordSection1>
+
+<p class=MsoNormal><b>TECLADO MATRICIAL</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img width=500
+height=235 id="Imagen 5" src="keypad_archivos/image001.png"
+alt=arduino-teclado-matricial-componente></p>
+
+<p class=MsoNormal>Un teclado matricial es un dispositivo que agrupa varios
+pulsadores y permite controlarlos empleando un número de conductores inferior
+al que necesitaríamos al usarlos de forma individual. Podemos emplear estos
+teclados como un controlador para un autómata o un procesador como Arduino.</p>
+
+<p class=MsoNormal>Estos dispositivos&nbsp;<b>agrupan los pulsadores en filas y
+columnas</b>&nbsp;formando una matriz, disposición que da lugar a su nombre. Es
+frecuente una disposición rectangular pura de NxM columnas, aunque otras disposiciones
+son igualmente posibles.</p>
+
+<p class=MsoNormal>Los teclados matriciales son frecuentes en electrónica e
+informática. De hecho, los teclados de ordenador normales son teclados
+matriciales, siendo un buen ejemplo de teclado matricial con disposición no
+rectangular.</p>
+
+<p class=MsoNormal>Una de las desventajas de usar un teclado matricial es que
+pueden causar problemas cuando se pulsa más de una tecla simultáneamente. Este
+es uno de los motivos por el que los teclados de ordenador usan una disposición
+no rectangular, agrupando ciertas teclas en circuitos diferentes (Ctrl, Alt,
+Shift…)</p>
+
+<p class=MsoNormal>En el campo de la electrónica casera y Arduino, se venden
+múltiples modelos de teclados matriciales en&nbsp;<b>distintos soportes</b>&nbsp;(rígidos
+o flexibles) y con&nbsp;<b>distinto número de teclas</b>, siendo habituales
+configuraciones de 3×3, 3×4, y 4×4.</p>
+
+<p class=MsoNormal>Podemos emplear teclados matriciales en nuestros proyectos
+de electrónica y robótica, por ejemplo, para cambiar el modo de funcionamiento
+de un montaje, para solicitar un password, como teclas de dirección para
+controlar un brazo robótico o un vehículo, o proporcionar instrucciones a un
+robot.</p>
+
+<p class=MsoNormal>La siguiente imagen muestra, a modo de ejemplo, una
+disposición rectangular de 4×4, aunque el funcionamiento es análogo en otras
+disposiciones. Al detectar la pulsación en la columna X y la fila Y, sabremos
+que se ha pulsado la tecla (X,Y).</p>
+
+<p class=MsoNormal>Internamente la disposición de los pulsadores es la
+siguiente, que es muy similar a la disposición que vimos al tratar sobre&nbsp;<a
+href="https://www.luisllamas.es/matriz-led-arduino-max7219/">displays LED matriciales</a>.</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=449 height=284 id="Imagen 4" src="keypad_archivos/image002.png"
+alt=arduino-teclado-matricial-interior></p>
+
+<p class=MsoNormal>Para detectar la pulsación de una tecla actuaremos de forma
+similar a la&nbsp;<a
+href="https://www.luisllamas.es/leer-un-pulsador-con-arduino/">lectura simple
+de un pulsador</a>. En resumen, ponemos a tierra un extremo del pulsador, y el
+otro lo conectamos a una entrada digital con una resistencia de pull-up.</p>
+
+<p class=MsoNormal>Para leer todas las teclas tendremos&nbsp;<b>que hacer un
+barrido por filas</b>. En primer lugar ponemos todas las filas a 5V, y
+definimos todas las columnas como entradas con resistencia de pull-up.</p>
+
+<p class=MsoNormal>Progresivamente ponemos una fila a 0V, y leemos las entradas
+de la columna. Una vez realizada la lectura volvemos a ponerla a 5V, pasamos a
+la siguiente fila, y volvemos a realizar el progreso hasta recorrer todas las
+filas.</p>
+
+<p class=MsoNormal>El papel de filas y columnas en la explicación es&nbsp;<b>intercambiable</b>,
+pudiendo realizar un barrido por las columnas, y lectura en las filas.</p>
+
+<p class=MsoNormal>Para detectar NxM pulsadores necesitamos sólo N+M
+conductores. Por tanto ahorro de conductores es superior cuanto más grandes
+sean N y M, y más parecidos entre sí. (ej: 16 pulsadores en 2×8 necesitan 10
+conductores, y en 4×4 sólo 8 conductores.)</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=550 height=254 id="Imagen 3" src="keypad_archivos/image003.png"
+alt=arduino-teclado-matricial-funcionamiento></p>
+
+<p class=MsoNormal>En consecuencia, los teclados de 1xM, Nx1 y 2×2 no suponen
+ningún ahorro en conductores aunque, independientemente, puede que os resulten
+de utilidad únicamente por agrupar en un mismo dispositivo la disposición que
+deseáis.</p>
+
+<p class=MsoNormal>Como hemos comentado, la mayor desventaja de la disposición
+matricial es que pueden dar problemas al detectar la pulsación de múltiples
+teclas de forma simultánea.</p>
+
+<p class=MsoNormal><b>ESQUEMA DE CONEXIÓN</b></p>
+
+<p class=MsoNormal>El esquema de conexión es sencillo. Simplemente conectamos
+todos los pines a entradas digitales de Arduino. Por ejemplo, en el ejemplo de
+un teclado de 4×4 el esquema quedaría de la siguiente forma.</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=359 height=281 id="Imagen 2" src="keypad_archivos/image004.png"
+alt=arduino-teclado-matricial-esquema></p>
+
+<p class=MsoNormal>Que visto desde Arduino quedaría de la siguiente forma.</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=400 height=450 id="Imagen 1" src="keypad_archivos/image005.png"
+alt=arduino-teclado-matricial-conexion></p>
+
+<p class=MsoNormal><b>EJEMPLOS DE CÓDIGO</b></p>
+
+<p class=MsoNormal>Existen varias librerías diseñaras para facilitar la lectura
+de teclados matriciales en Arduino. Por ejemplo, la librería Keypad, disponible
+en&nbsp;<a href="https://github.com/Chris--A/Keypad">este enlace</a>. La
+librería proporciona ejemplos de código, que resulta aconsejable revisar.</p>
+
+<p class=MsoNormal>El siguiente ejemplo es una modificación a partir de los
+disponibles en la librería.</p>
+
+<p class=Code><span lang=ES>#include &lt;Keypad.h&gt;</span></p>
+
+<p class=Code><span lang=ES> </span></p>
+
+<p class=Code><span lang=ES>const byte rowsCount = 4;</span></p>
+
+<p class=Code><span lang=ES>const byte columsCount = 4;</span></p>
+
+<p class=Code><span lang=ES> </span></p>
+
+<p class=Code><span lang=ES>char keys[rowsCount][columsCount] = {</span></p>
+
+<p class=Code><span lang=ES>   { '1','2','3', 'A' },</span></p>
+
+<p class=Code><span lang=ES>   { '4','5','6', 'B' },</span></p>
+
+<p class=Code><span lang=ES>   { '7','8','9', 'C' },</span></p>
+
+<p class=Code><span lang=ES>   { '#','0','*', 'D' }</span></p>
+
+<p class=Code><span lang=ES>};</span></p>
+
+<p class=Code><span lang=ES> </span></p>
+
+<p class=Code><span lang=ES>const byte rowPins[rowsCount] = { 11, 10, 9, 8 };</span></p>
+
+<p class=Code><span lang=ES>const byte columnPins[columsCount] = { 7, 6, 5, 4
+};</span></p>
+
+<p class=Code><span lang=ES> </span></p>
+
+<p class=Code><span lang=ES>Keypad keypad = Keypad(makeKeymap(keys), rowPins,
+columnPins, rowsCount, columsCount);</span></p>
+
+<p class=Code><span lang=ES> </span></p>
+
+<p class=Code><span lang=ES>void setup() {</span></p>
+
+<p class=Code><span lang=ES>   Serial.begin(9600);</span></p>
+
+<p class=Code><span lang=ES>}</span></p>
+
+<p class=Code><span lang=ES> </span></p>
+
+<p class=Code><span lang=ES>void loop() {</span></p>
+
+<p class=Code><span lang=ES>   char key = keypad.getKey();</span></p>
+
+<p class=Code><span lang=ES> </span></p>
+
+<p class=Code><span lang=ES>   if (key) {</span></p>
+
+<p class=Code><span lang=ES>      Serial.println(key);</span></p>
+
+<p class=Code><span lang=ES>   }</span></p>
+
+<p class=Code><span lang=ES>}</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
